@@ -1,0 +1,25 @@
+{
+  "name": "chistes-api",
+  "version": "1.0.0",
+  "description": "Los mejores y mas buscados chistes en habla hispana reunidos en una sola API.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/FedericoWalovnik/chistes-api.git"
+  },
+  "author": "FedericoWalovnik cqueirolo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FedericoWalovnik/chistes-api/issues"
+  },
+  "homepage": "https://github.com/FedericoWalovnik/chistes-api#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.5"
+  }
+}
