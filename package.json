@@ -4,7 +4,7 @@
   "description": "Los mejores y mas buscados chistes en habla hispana reunidos en una sola API.",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon -r dotenv/config server.js"
+    "dev": "nodemon -r dotenv/config server.js dotenv_config_path=./src/config/dev.env"
   },
   "repository": {
     "type": "git",
