@@ -21,6 +21,12 @@ const usuarioSchema = new Schema({
     trim: true,
     required: true,
   },
+  chistes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Chiste",
+    },
+  ],
 });
 const Usuario = model("Usuario", usuarioSchema);
 
