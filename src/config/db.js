@@ -1,9 +1,6 @@
 const moongose = require('mongoose');
 const db = process.env.MONGO_URI;
 
-//const db ='mongodb+srv://fedeicowalovnik:JUBEvDwblaXwEy1F@chistesdb.xvrq4.mongodb.net/chistesDB?retryWrites=true&w=majority';
-console.log(db);
-
 const connectDB = async () => {
   try {
     await moongose.connect(db, {
