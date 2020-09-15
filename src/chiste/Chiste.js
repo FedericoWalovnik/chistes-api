@@ -6,9 +6,9 @@ const ChistesSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
-    trim: true
+    ref: 'categoria'
   },
   joke: {
     type: String,

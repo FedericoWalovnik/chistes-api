@@ -1,20 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const Chiste = require('./Chiste');
+const Categoria = require('../categoria/Categoria');
 
-router.post('/chistes', async (req, res) => {
+//crear chiste
+router.post('/', async (req, res) => {
   const chiste = new Chiste(req.body);
-  console.log(chiste);
+
+  const categoria = await Categoria.findById(chiste.category);
+  if (categoria === undefined || categoria === null) {
+    res.status(400).send('Ingrese una categoria valida');
+  }
+
   try {
     await chiste.save();
     res.status(201).send(chiste);
   } catch (err) {
-    console.log(err);
     res.status(400).send(err);
   }
 });
 
-router.get('/chistes', async (req, res) => {
+//obtener todos los chistes
+router.get('/', async (req, res) => {
   try {
     const chistes = await Chiste.find().sort({ date: -1 });
     res.status(200).json(chistes);
@@ -23,17 +30,21 @@ router.get('/chistes', async (req, res) => {
   }
 });
 
-router.get('/chistes/:id', async (req, res) => {
+//obtener un chiste por su id
+router.get('/:id', async (req, res) => {
   try {
     const chiste = await Chiste.findById(req.params.id);
+    if (chiste === null) {
+      res.status(401).json('No existe');
+    }
     res.status(200).json(chiste);
   } catch (error) {
     res.status(500).send('Server error');
   }
-  res.status(200).send({ message: 'GET /chistes' });
 });
 
-router.delete('/chistes/:id', async (req, res) => {
+//eliminar un chiste por su id
+router.delete('/:id', async (req, res) => {
   try {
     const chisteDeleted = await Chiste.findByIdAndDelete(req.params.id);
     res.status(200).json(chisteDeleted);
