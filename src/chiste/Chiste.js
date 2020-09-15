@@ -1,22 +1,24 @@
 const mongoose = require('mongoose');
 
 const ChistesSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    unique: true
-  },
   name: {
     type: String,
     required: true
   },
   category: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   joke: {
     type: String,
-    required: true
+    required: true,
+    unique: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
-module.exports = Chistes = mongoose.model('chistes', ChistesSchema);
+module.exports = Chiste = mongoose.model('Chiste', ChistesSchema);
