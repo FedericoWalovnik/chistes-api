@@ -17,11 +17,29 @@ router.post('/chistes', async (req, res) => {
 router.get('/chistes', async (req, res) => {
   try {
     const chistes = await Chiste.find().sort({ date: -1 });
-    res.json(chistes);
+    res.status(200).json(chistes);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
+router.get('/chistes/:id', async (req, res) => {
+  try {
+    const chiste = await Chiste.findById(req.params.id);
+    res.status(200).json(chiste);
   } catch (error) {
     res.status(500).send('Server error');
   }
   res.status(200).send({ message: 'GET /chistes' });
+});
+
+router.delete('/chistes/:id', async (req, res) => {
+  try {
+    const chisteDeleted = await Chiste.findByIdAndDelete(req.params.id);
+    res.status(200).json(chisteDeleted);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
 });
 
 module.exports = router;
