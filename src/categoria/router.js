@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Categoria = require('./Categoria');
+const Chiste = require('../chiste/Chiste');
 
 //crear categoria
 router.post('/', async (req, res) => {
+  console.log('entre al route');
   const categoria = new Categoria(req.body);
   console.log(categoria);
   try {
@@ -11,7 +13,7 @@ router.post('/', async (req, res) => {
     res.status(201).send(categoria);
   } catch (err) {
     console.log(err);
-    res.status(400).send(err);
+    res.status(400).send('server error');
   }
 });
 
@@ -42,8 +44,8 @@ router.get('/:id', async (req, res) => {
 //eliminar una categoria por su id
 router.delete('/:id', async (req, res) => {
   try {
-    const categoriaEliminada = await Categoria.findByIdAndDelete(req.params.id);
-    res.status(200).json(categoriaEliminada);
+    const CategoriaEliminada = await Categoria.findByIdAndDelete(req.params.id);
+    res.status(200).json(CategoriaEliminada);
   } catch (error) {
     res.status(500).send('Server error');
   }

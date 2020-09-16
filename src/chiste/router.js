@@ -46,8 +46,8 @@ router.get('/:id', async (req, res) => {
 //eliminar un chiste por su id
 router.delete('/:id', async (req, res) => {
   try {
-    const chisteDeleted = await Chiste.findByIdAndDelete(req.params.id);
-    res.status(200).json(chisteDeleted);
+    const chisteEliminado = await Chiste.findByIdAndDelete(req.params.id);
+    res.status(200).json(chisteEliminado);
   } catch (error) {
     res.status(500).send('Server error');
   }
