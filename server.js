@@ -5,16 +5,19 @@ const categoria = require('./src/categoria/router');
 
 const PORT = process.env.PORT || 3000;
 
+connectDB();
+
 const app = express();
 
 //Connect Database
 connectDB();
 
 app.use(express.json());
+app.use("/usuarios", usuarios);
 
 app.use('/chistes', chistes);
 app.use('/categorias', categoria);
 
 app.listen(PORT, () => {
-  console.log(`Server up and runnig! Listening on port ${PORT}`);
+  console.log(`Server up and running! Listening on port ${PORT}`);
 });

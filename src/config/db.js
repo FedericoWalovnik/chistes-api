@@ -1,4 +1,5 @@
 const moongose = require('mongoose');
+
 const db = process.env.MONGO_URI;
 
 const connectDB = async () => {
@@ -10,6 +11,7 @@ const connectDB = async () => {
     });
 
     console.log('Database connected...');
+    
   } catch (error) {
     console.error(error.message);
     //exit process with failure
