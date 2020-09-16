@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const connectDB = require("./src/config/db");
 
 const usuarios = require("./src/usuarios/router");
@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 const app = express();
+
+//Connect Database
+connectDB();
 
 app.use(express.json());
 app.use("/usuarios", usuarios);

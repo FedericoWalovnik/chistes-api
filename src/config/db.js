@@ -1,4 +1,5 @@
-const moongose = require("mongoose");
+const moongose = require('mongoose');
+
 const db = process.env.MONGO_URI;
 
 //const db ='mongodb+srv://fedeicowalovnik:JUBEvDwblaXwEy1F@chistesdb.xvrq4.mongodb.net/chistesDB?retryWrites=true&w=majority';
@@ -9,10 +10,11 @@ const connectDB = async () => {
     await moongose.connect(db, {
       useNewUrlParser: true,
       useCreateIndex: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     });
 
-    console.log("Database connected...");
+    console.log('Database connected...');
+    
   } catch (error) {
     console.error(error.message);
     //exit process with failure
