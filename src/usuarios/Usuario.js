@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
 
 const usuarioSchema = new Schema({
   nombre: {
@@ -34,6 +35,18 @@ const usuarioSchema = new Schema({
       }
     }
   },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true
+      }
+    }
+  ],
+  date: {
+    type: Date,
+    default: Date.now
+  },
   chistes: [
     {
       type: Schema.Types.ObjectId,
@@ -41,6 +54,22 @@ const usuarioSchema = new Schema({
     }
   ]
 });
+
+usuarioSchema.methods.generarAuthToken = async function () {
+  const usuario = this;
+  const payload = {
+    user: {
+      id: usuario.id
+    }
+  };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 36000 });
+
+  usuario.tokens = usuario.tokens.concat({ token });
+  await usuario.save();
+
+  return token;
+};
+
 const Usuario = model('Usuario', usuarioSchema);
 
 module.exports = Usuario;
