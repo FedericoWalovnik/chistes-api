@@ -11,22 +11,11 @@ const connectDB = async () => {
     });
 
     console.log('Database connected...');
-    
   } catch (error) {
     console.error(error.message);
     //exit process with failure
     process.exit(1);
   }
 };
-
-/*
-const uri =
-  'mongodb+srv://fedeicowalovnik:<password>@chistesdb.xvrq4.mongodb.net/<dbname>?retryWrites=true&w=majority';
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect((err) => {
-  const collection = client.db('test').collection('devices');
-  // perform actions on the collection object
-  client.close();
-});*/
 
 module.exports = connectDB;

@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
     res.status(500).send(e.message);
   }
 });
+
 router.put("/:id", async (req, res) => {
   try {
     const _id = req.params.id;
@@ -45,6 +46,7 @@ router.put("/:id", async (req, res) => {
     res.status(500).send(e.message);
   }
 });
+
 router.delete("/:id", async (req, res) => {
   try {
     const _id = req.params.id;
