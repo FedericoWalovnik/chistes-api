@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const usuarioSchema = new Schema({
   nombre: {
@@ -68,6 +69,22 @@ usuarioSchema.methods.generarAuthToken = async function () {
   await usuario.save();
 
   return token;
+};
+
+usuarioSchema.statics.findByCredentials = async (email, contraseña) => {
+  const usuario = await Usuario.findOne({ email });
+
+  if (!usuario) {
+    throw new Error('No se pudo logear!');
+  }
+
+  const sonIguales = await bcrypt.compare(contraseña, usuario.contraseña);
+
+  if (!sonIguales) {
+    throw new Error('No se pudo logear!');
+  }
+
+  return usuario;
 };
 
 const Usuario = model('Usuario', usuarioSchema);

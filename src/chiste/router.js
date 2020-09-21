@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Chiste = require('./Chiste');
 const Categoria = require('../categoria/Categoria');
+const auth = require('../middleware/auth');
 
 //crear chiste
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const chiste = new Chiste(req.body);
 
   const categoria = await Categoria.findById(chiste.category);
@@ -21,7 +22,7 @@ router.post('/', async (req, res) => {
 });
 
 //obtener todos los chistes
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const chistes = await Chiste.find().sort({ date: -1 });
     res.status(200).json(chistes);
@@ -31,7 +32,7 @@ router.get('/', async (req, res) => {
 });
 
 //obtener un chiste por su id
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
     const chiste = await Chiste.findById(req.params.id);
     if (chiste === null) {
@@ -44,7 +45,7 @@ router.get('/:id', async (req, res) => {
 });
 
 //eliminar un chiste por su id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const chisteEliminado = await Chiste.findByIdAndDelete(req.params.id);
     res.status(200).json(chisteEliminado);
