@@ -8,7 +8,7 @@ const ChistesSchema = new mongoose.Schema({
   category: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'categoria'
+    ref: 'Categoria'
   },
   joke: {
     type: String,

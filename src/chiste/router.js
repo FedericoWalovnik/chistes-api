@@ -10,24 +10,25 @@ router.post('/', auth, async (req, res) => {
 
   const categoria = await Categoria.findById(chiste.category);
   if (categoria === undefined || categoria === null) {
-    res.status(400).send('Ingrese una categoria valida');
+    res.status(400).json({ mensaje: 'Ingrese una categoria valida' });
   }
 
   try {
     await chiste.save();
     res.status(201).send(chiste);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(500).json({ mensaje: 'Error del servidor' });
   }
 });
 
 //obtener todos los chistes
 router.get('/', auth, async (req, res) => {
   try {
-    const chistes = await Chiste.find().sort({ date: -1 });
+    const chistes = await Chiste.find().sort({ date: -1 }).populate('category');
     res.status(200).json(chistes);
   } catch (error) {
-    res.status(500).send('Server error');
+    console.log(error);
+    res.status(500).json({ mensaje: 'Error del servidor' });
   }
 });
 
@@ -36,11 +37,13 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const chiste = await Chiste.findById(req.params.id);
     if (chiste === null) {
-      res.status(401).json('No existe');
+      res
+        .status(401)
+        .json({ mensaje: 'El chiste que esta buscando no existe' });
     }
     res.status(200).json(chiste);
   } catch (error) {
-    res.status(500).send('Server error');
+    res.status(500).json({ mensaje: 'Error del servidor' });
   }
 });
 
@@ -50,7 +53,7 @@ router.delete('/:id', auth, async (req, res) => {
     const chisteEliminado = await Chiste.findByIdAndDelete(req.params.id);
     res.status(200).json(chisteEliminado);
   } catch (error) {
-    res.status(500).send('Server error');
+    res.status(500).json({ mensaje: 'Error del servidor' });
   }
 });
 

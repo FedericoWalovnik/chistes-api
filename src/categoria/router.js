@@ -12,7 +12,7 @@ router.post('/', auth, async (req, res) => {
     res.status(201).send(categoria);
   } catch (err) {
     console.log(err);
-    res.status(400).send('server error');
+    res.status(400).json({ mensaje: 'Error del servidor' });
   }
 });
 
@@ -22,7 +22,7 @@ router.get('/', auth, async (req, res) => {
     const categorias = await Categoria.find().sort({ date: -1 });
     res.status(200).json(categorias);
   } catch (error) {
-    res.status(500).send('Server error');
+    res.status(500).json({ mensaje: 'Error del servidor' });
   }
 });
 
@@ -36,7 +36,7 @@ router.get('/:id', auth, async (req, res) => {
     res.status(200).json(categoria);
   } catch (error) {
     console.log(error);
-    res.status(500).send('Server error');
+    res.status(500).json({ mensaje: 'Error del servidor' });
   }
 });
 
@@ -47,6 +47,8 @@ router.delete('/:id', auth, async (req, res) => {
     if (!categoriaEliminada) {
       res.status(401).json({ mensaje: 'No existe la categoria' });
     }
+
+    //cambio la categoria de los chistes asociados a la categoria eliminada
     const chistesCategoriaEliminada = await Chiste.find({
       category: categoriaEliminada
     });
@@ -60,7 +62,7 @@ router.delete('/:id', auth, async (req, res) => {
     res.status(200).json(categoriaEliminada);
   } catch (error) {
     console.log(error);
-    res.status(500).send('Server error');
+    res.status(500).json({ mensaje: 'Error del servidor' });
   }
 });
 
